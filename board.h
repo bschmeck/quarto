@@ -33,3 +33,5 @@
           WHITE | SQUARE | SOLID | SHORT,  \
           WHITE | SQUARE | HOLLOW | TALL,  \
 			  WHITE | SQUARE | HOLLOW | SHORT}
+
+#define ALL_MATCH(cat, a, b, c, d) (IS_PIECE(a) && IS_PIECE(b) && IS_PIECE(c) && IS_PIECE(d) && ((a & cat) ^ (b & cat) == 0) && ((a & cat) ^ (c & cat) == 0) && ((a & cat) ^ (d & cat) == 0))
