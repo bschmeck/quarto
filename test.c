@@ -80,13 +80,13 @@ test_all_match()
 
 		/* Test different pieces with different characteristics */
 		/* The first 8 pieces in PIECES are black. */
-		ALL_MATCH_TEST(COLOR, pieces[0], pieces[1], pieces[8], pieces[9], 1, "ALL_MATCH BLACK AND WHITE");
+		ALL_MATCH_TEST(COLOR, pieces[0], pieces[1], pieces[8], pieces[9], 0, "ALL_MATCH BLACK AND WHITE");
 		/* The first 4 pieces in PIECES are round. */
-		ALL_MATCH_TEST(SHAPE, pieces[0], pieces[1], pieces[4], pieces[5], 1, "ALL_MATCH ROUND AND SQUARE");
+		ALL_MATCH_TEST(SHAPE, pieces[0], pieces[1], pieces[4], pieces[5], 0, "ALL_MATCH ROUND AND SQUARE");
 		/* The first and third groups of 2 pieces in PIECES are solid. */
-		ALL_MATCH_TEST(CENTER, pieces[0], pieces[1], pieces[2], pieces[3], 1, "ALL_MATCH SOLID AND HOLLOW");
+		ALL_MATCH_TEST(CENTER, pieces[0], pieces[1], pieces[2], pieces[3], 0, "ALL_MATCH SOLID AND HOLLOW");
 		/* The even pieces in PIECES are tall. */
-		ALL_MATCH_TEST(HEIGHT, pieces[0], pieces[1], pieces[2], pieces[3], 1, "ALL_MATCH TALL AND SHORT");
+		ALL_MATCH_TEST(HEIGHT, pieces[0], pieces[1], pieces[2], pieces[3], 0, "ALL_MATCH TALL AND SHORT");
 
 		return ret;
 }
