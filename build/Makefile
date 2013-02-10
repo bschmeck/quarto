@@ -1,16 +1,18 @@
 topdir = ..
-bindir = $(bindir)/bin
+bindir = $(topdir)/bin
 builddir = .
 srcdir = $(topdir)/src
 testdir = $(topdir)/tests
 
-DEPS = $(srcdir)/board.h
-TEST_OBJS = test.o
+DEPS = $(srcdir)/board.h $(testdir)/test.h
+TEST_OBJS = test.o test_all_match.o test_is_quarto.o
 
 CC=gcc
 CFLAGS=-I$(srcdir) -I$(builddir)
 
 test.o: $(testdir)/test.c $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
+test%.o: $(testdir)/test%.c $(DEPS)#
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 test: $(TEST_OBJS)
