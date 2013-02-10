@@ -35,3 +35,6 @@
 			  WHITE | SQUARE | HOLLOW | SHORT}
 
 #define ALL_MATCH(cat, a, b, c, d) (IS_PIECE(a) && IS_PIECE(b) && IS_PIECE(c) && IS_PIECE(d) && (((a & cat) ^ (b & cat)) == 0) && (((a & cat) ^ (c & cat)) == 0) && (((a & cat) ^ (d & cat)) == 0))
+
+#define IS_QUARTO(a, b, c, d) \
+    (ALL_MATCH(COLOR, (a), (b), (c), (d)) || ALL_MATCH(SHAPE, (a), (b), (c), (d)) || ALL_MATCH(CENTER, (a), (b), (c), (d)) || ALL_MATCH(HEIGHT, (a), (b), (c), (d)))
