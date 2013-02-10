@@ -4,13 +4,14 @@
 
 static int test_all_match(void);
 
-#define ALL_MATCH_TEST(category, a, b, c, d, expect, name)		\
-		do {                                                    \
-			if ((ret = ALL_MATCH(category, a, b, c, d)) != expect) { \
-				printf("%s fails\n", name);					    \
-				printf("  expected %d got %d\n", expect, ret);	\
-				ret = -1;                                       \
-		    }                                                   \
+#define ALL_MATCH_TEST(category, a, b, c, d, expect, name)		      \
+		do {                                                          \
+		    int _ret;                                                 \
+			if ((_ret = ALL_MATCH(category, a, b, c, d)) != expect) { \
+				printf("%s fails\n", name);					          \
+				printf("  expected %d got %d\n", expect, ret);	      \
+				ret = -1;                                             \
+		    }                                                         \
         } while(0)
 
 static int
