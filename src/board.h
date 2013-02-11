@@ -46,3 +46,6 @@
 		IS_QUARTO(boardp[0], boardp[4], boardp[8], boardp[12]) || IS_QUARTO(boardp[1], boardp[5], boardp[9], boardp[13]) ||     \
 		IS_QUARTO(boardp[2], boardp[6], boardp[10], boardp[14]) || IS_QUARTO(boardp[3], boardp[7], boardp[11], boardp[15]) ||   \
 		IS_QUARTO(boardp[0], boardp[5], boardp[10], boardp[15]) || IS_QUARTO(boardp[3], boardp[6], boardp[9], boardp[12]))
+
+#define COUNT_PIECES(boardp) \
+  ((boardp[0] & PIECE) + (boardp[1] & PIECE) + (boardp[2] & PIECE) + (boardp[3] & PIECE) + (boardp[4] & PIECE) + (boardp[5] & PIECE) + (boardp[6] & PIECE) + (boardp[7] & PIECE) + (boardp[8] & PIECE) + (boardp[9] & PIECE) + (boardp[10] & PIECE) + (boardp[11] & PIECE) + (boardp[12] & PIECE) + (boardp[13] & PIECE) + (boardp[14] & PIECE) + (boardp[15] & PIECE))

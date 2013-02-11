@@ -5,7 +5,7 @@ srcdir = $(topdir)/src
 testdir = $(topdir)/tests
 
 DEPS = $(srcdir)/board.h $(testdir)/test.h
-TEST_OBJS = test.o test_all_match.o test_is_quarto.o test_is_winning_board.o
+TEST_OBJS = test.o test_all_match.o test_count_pieces.o test_is_quarto.o test_is_winning_board.o
 
 CC=gcc
 CFLAGS=-I$(srcdir) -I$(builddir)

@@ -22,6 +22,7 @@ main(argc, argv)
 		RUN_TEST(test_all_match, "ALL_MATCH");
 		RUN_TEST(test_is_quarto, "IS_QUARTO");
 		RUN_TEST(test_is_winning_board, "IS_WINNING_BOARD");
+        RUN_TEST(test_count_pieces, "COUNT_PIECES");
 
 		return ret;
 }
