@@ -1,3 +1,5 @@
+typedef unsigned int piece_t;
+
 #define PIECE 1
 #define COLOR 2
 #define SHAPE 4

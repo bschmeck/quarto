@@ -16,7 +16,7 @@ int
 test_all_match()
 {
 		int ret;
-		int pieces[NPIECES] = PIECES;
+		piece_t pieces[NPIECES] = PIECES;
 
 		ret = 0;
 

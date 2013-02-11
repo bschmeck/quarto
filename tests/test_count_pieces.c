@@ -19,11 +19,11 @@ test_count_pieces()
 {
         char *msg;
         int i, ret;
-        int *boardp;
-        int pieces[NPIECES] = PIECES;
+        piece_t *boardp;
+        piece_t pieces[NPIECES] = PIECES;
         int indexes[BOARD_SIZE] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
         
-        boardp = calloc(BOARD_SIZE, sizeof(int));
+        boardp = calloc(BOARD_SIZE, sizeof(piece_t));
 		ret = 0;
 
 		/* Test an empty board */

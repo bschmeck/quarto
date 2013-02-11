@@ -18,10 +18,10 @@ int
 test_is_winning_board()
 {
 		int ret;
-		int *boardp;
-		int pieces[NPIECES] = PIECES;
+		piece_t *boardp;
+		piece_t pieces[NPIECES] = PIECES;
 
-		boardp = calloc(BOARD_SIZE, sizeof(int));
+		boardp = calloc(BOARD_SIZE, sizeof(piece_t));
 		ret = 0;
 
 		/* Test an empty board */
