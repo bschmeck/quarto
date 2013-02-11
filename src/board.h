@@ -38,3 +38,11 @@
 
 #define IS_QUARTO(a, b, c, d) \
     (ALL_MATCH(COLOR, (a), (b), (c), (d)) || ALL_MATCH(SHAPE, (a), (b), (c), (d)) || ALL_MATCH(CENTER, (a), (b), (c), (d)) || ALL_MATCH(HEIGHT, (a), (b), (c), (d)))
+
+#define BOARD_SIZE 16
+#define IS_WINNING_BOARD(boardp) \
+		(IS_QUARTO(boardp[0], boardp[1], boardp[2], boardp[3]) || IS_QUARTO(boardp[4], boardp[5], boardp[6], boardp[7]) ||      \
+		IS_QUARTO(boardp[8], boardp[9], boardp[10], boardp[11]) || IS_QUARTO(boardp[12], boardp[13], boardp[14], boardp[15]) || \
+		IS_QUARTO(boardp[0], boardp[4], boardp[8], boardp[12]) || IS_QUARTO(boardp[1], boardp[5], boardp[9], boardp[13]) ||     \
+		IS_QUARTO(boardp[2], boardp[6], boardp[10], boardp[14]) || IS_QUARTO(boardp[3], boardp[7], boardp[11], boardp[15]) ||   \
+		IS_QUARTO(boardp[0], boardp[5], boardp[10], boardp[15]) || IS_QUARTO(boardp[3], boardp[6], boardp[9], boardp[12]))

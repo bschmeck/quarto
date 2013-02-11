@@ -19,5 +19,9 @@ main(argc, argv)
 		printf("IS_QUARTO %s\n", t_ret == 0 ? "passes" : "fails");
 		ret = ret == 0 ? t_ret : ret;
 
+		t_ret = test_is_winning_board();
+		printf("IS_WINNING_BOARD %s\n", t_ret == 0 ? "passes" : "fails");
+		ret = ret == 0 ? t_ret : ret;
+
 		return ret;
 }
