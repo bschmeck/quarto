@@ -1,3 +1,6 @@
+#ifndef BOARD_H
+#define BOARD_H
+
 typedef unsigned int piece_t;
 
 #define PIECE 1
@@ -41,7 +44,9 @@ typedef unsigned int piece_t;
 #define IS_QUARTO(a, b, c, d) \
     (ALL_MATCH(COLOR, (a), (b), (c), (d)) || ALL_MATCH(SHAPE, (a), (b), (c), (d)) || ALL_MATCH(CENTER, (a), (b), (c), (d)) || ALL_MATCH(HEIGHT, (a), (b), (c), (d)))
 
-#define BOARD_SIZE 16
+#define NROWS 4
+#define NCOLS 4
+#define BOARD_SIZE (NROWS * NCOLS)
 #define IS_WINNING_BOARD(boardp) \
 		(IS_QUARTO(boardp[0], boardp[1], boardp[2], boardp[3]) || IS_QUARTO(boardp[4], boardp[5], boardp[6], boardp[7]) ||      \
 		IS_QUARTO(boardp[8], boardp[9], boardp[10], boardp[11]) || IS_QUARTO(boardp[12], boardp[13], boardp[14], boardp[15]) || \
@@ -51,3 +56,5 @@ typedef unsigned int piece_t;
 
 #define COUNT_PIECES(boardp) \
   ((boardp[0] & PIECE) + (boardp[1] & PIECE) + (boardp[2] & PIECE) + (boardp[3] & PIECE) + (boardp[4] & PIECE) + (boardp[5] & PIECE) + (boardp[6] & PIECE) + (boardp[7] & PIECE) + (boardp[8] & PIECE) + (boardp[9] & PIECE) + (boardp[10] & PIECE) + (boardp[11] & PIECE) + (boardp[12] & PIECE) + (boardp[13] & PIECE) + (boardp[14] & PIECE) + (boardp[15] & PIECE))
+
+#endif
