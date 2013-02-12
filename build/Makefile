@@ -6,11 +6,11 @@ testdir = $(topdir)/tests
 
 DEPS = $(srcdir)/board.h $(srcdir)/parse.h $(testdir)/test.h
 QUARTO_OBJS = parse.o
-TEST_OBJS = test.o test_all_match.o test_count_pieces.o test_initialize_game.o test_is_quarto.o test_is_winning_board.o
+TEST_OBJS = test.o test_all_match.o test_count_pieces.o test_initialize_game.o test_is_quarto.o test_is_winning_board.o test_parse.o
 
 CC=gcc
-CFLAGS=-I$(srcdir) -I$(builddir)
-CFLAGS_TEST=$(CFLAGS) -ggdb3
+CFLAGS=-I$(srcdir) -I$(builddir) -ggdb3
+CFLAGS_TEST=$(CFLAGS)
 
 parse.o: $(srcdir)/parse.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)

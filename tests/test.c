@@ -24,5 +24,7 @@ main(argc, argv)
 		RUN_TEST(test_is_winning_board, "IS_WINNING_BOARD");
         RUN_TEST(test_count_pieces, "COUNT_PIECES");
 		RUN_TEST(test_initialize_game, "INIT_GAME");
+		RUN_TEST(test_parse, "TEST_PARSE");
+
 		return ret;
 }
