@@ -2,10 +2,10 @@
 
 #include "test.h"
 
-#define ALL_MATCH_TEST(category, a, b, c, d, expect, name)		      \
+#define ALL_MATCH_TEST(attribute, a, b, c, d, expect, name)		      \
 		do {                                                          \
 		    int _ret;                                                 \
-			if ((_ret = ALL_MATCH(category, a, b, c, d)) != expect) { \
+			if ((_ret = ALL_MATCH(attribute, a, b, c, d)) != expect) { \
 				printf("%s fails\n", name);					          \
 				printf("  expected %d got %d\n", expect, ret);	      \
 				ret = -1;                                             \
@@ -20,7 +20,7 @@ test_all_match()
 
 		ret = 0;
 
-		/* Test each category */
+		/* Test each attribute */
 		ALL_MATCH_TEST(COLOR, BLACK, BLACK, BLACK, BLACK, 1, "ALL_MATCH BLACK");
 		ALL_MATCH_TEST(COLOR, WHITE, WHITE, WHITE, WHITE, 1, "ALL_MATCH WHITE");
 		ALL_MATCH_TEST(SHAPE, ROUND, ROUND, ROUND, ROUND, 1, "ALL_MATCH ROUND");

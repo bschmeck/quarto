@@ -12,14 +12,14 @@
 				ret = -1;                                             \
 		    }                                                         \
         } while(0)
-#define PARSE_PIECE_CATEGORY(piece_str, cat, name)					  \
+#define PARSE_PIECE_ATTRIBUTE(piece_str, attr, name)					  \
 		do {                                                          \
           int _ret;                                                   \
           piece_t _piece;                                             \
           parse_piece(piece_str, &_piece);                            \
-          if (_piece & cat != cat) {                                  \
+          if (_piece & attr != attr) {                                  \
 				printf("%s fails\n", name);					          \
-				printf("  expected %d got %d\n", cat, _piece);	      \
+				printf("  expected %d got %d\n", attr, _piece);	      \
 				ret = -1;                                             \
 		    }                                                         \
         } while(0)

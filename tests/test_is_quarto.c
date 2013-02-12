@@ -20,7 +20,7 @@ test_is_quarto()
 
 		ret = 0;
 
-		/* Test each category */
+		/* Test each attribute */
 		IS_QUARTO_TEST(BLACK, BLACK, BLACK, BLACK, 1, "IS_QUARTO BLACK");
 		IS_QUARTO_TEST(WHITE, WHITE, WHITE, WHITE, 1, "IS_QUARTO WHITE");
 		IS_QUARTO_TEST(ROUND, ROUND, ROUND, ROUND, 1, "IS_QUARTO ROUND");

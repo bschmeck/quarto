@@ -7,6 +7,7 @@ typedef struct {
 		piece_t *remaining;
 } Game;
 
+/* Attributes */
 #define PIECE 1
 #define COLOR 2
 #define SHAPE 4
@@ -43,14 +44,17 @@ typedef struct {
           WHITE | SQUARE | HOLLOW | TALL,  \
 			  WHITE | SQUARE | HOLLOW | SHORT}
 
-#define ALL_MATCH(cat, a, b, c, d) (IS_PIECE(a) && IS_PIECE(b) && IS_PIECE(c) && IS_PIECE(d) && (((a & cat) ^ (b & cat)) == 0) && (((a & cat) ^ (c & cat)) == 0) && (((a & cat) ^ (d & cat)) == 0))
+/* Check whether four pieces all share a given attribute */
+#define ALL_MATCH(attr, a, b, c, d) (IS_PIECE(a) && IS_PIECE(b) && IS_PIECE(c) && IS_PIECE(d) && (((a & attr) ^ (b & attr)) == 0) && (((a & attr) ^ (c & attr)) == 0) && (((a & attr) ^ (d & attr)) == 0))
 
+/* Check whether four pieces all share a common attribute */
 #define IS_QUARTO(a, b, c, d) \
     (ALL_MATCH(COLOR, (a), (b), (c), (d)) || ALL_MATCH(SHAPE, (a), (b), (c), (d)) || ALL_MATCH(CENTER, (a), (b), (c), (d)) || ALL_MATCH(HEIGHT, (a), (b), (c), (d)))
 
 #define NROWS 4
 #define NCOLS 4
 #define BOARD_SIZE (NROWS * NCOLS)
+/* Check whether any of the rows columns or diags on the board are a quarto */
 #define IS_WINNING_BOARD(boardp) \
 		(IS_QUARTO(boardp[0], boardp[1], boardp[2], boardp[3]) || IS_QUARTO(boardp[4], boardp[5], boardp[6], boardp[7]) ||      \
 		IS_QUARTO(boardp[8], boardp[9], boardp[10], boardp[11]) || IS_QUARTO(boardp[12], boardp[13], boardp[14], boardp[15]) || \
@@ -58,7 +62,8 @@ typedef struct {
 		IS_QUARTO(boardp[2], boardp[6], boardp[10], boardp[14]) || IS_QUARTO(boardp[3], boardp[7], boardp[11], boardp[15]) ||   \
 		IS_QUARTO(boardp[0], boardp[5], boardp[10], boardp[15]) || IS_QUARTO(boardp[3], boardp[6], boardp[9], boardp[12]))
 
-#define COUNT_PIECES(boardp) \
-  ((boardp[0] & PIECE) + (boardp[1] & PIECE) + (boardp[2] & PIECE) + (boardp[3] & PIECE) + (boardp[4] & PIECE) + (boardp[5] & PIECE) + (boardp[6] & PIECE) + (boardp[7] & PIECE) + (boardp[8] & PIECE) + (boardp[9] & PIECE) + (boardp[10] & PIECE) + (boardp[11] & PIECE) + (boardp[12] & PIECE) + (boardp[13] & PIECE) + (boardp[14] & PIECE) + (boardp[15] & PIECE))
+/* Count the number of pieces in the array. */
+#define COUNT_PIECES(piecesp) \
+  ((piecesp[0] & PIECE) + (piecesp[1] & PIECE) + (piecesp[2] & PIECE) + (piecesp[3] & PIECE) + (piecesp[4] & PIECE) + (piecesp[5] & PIECE) + (piecesp[6] & PIECE) + (piecesp[7] & PIECE) + (piecesp[8] & PIECE) + (piecesp[9] & PIECE) + (piecesp[10] & PIECE) + (piecesp[11] & PIECE) + (piecesp[12] & PIECE) + (piecesp[13] & PIECE) + (piecesp[14] & PIECE) + (piecesp[15] & PIECE))
 
 #endif

@@ -50,14 +50,14 @@ parse(fp, gamepp)
 		return 0;
 }
 
-#define SET_CATEGORY(code, code1, cat1, code2, cat2, cat) \
+#define SET_ATTRIBUTE(code, code1, attr1, code2, attr2, attr) \
 		do {                                              \
 				if (code == code1) {                      \
-				        *piecep |= cat1;                    \
-						categories |= cat;                \
+				        *piecep |= attr1;                    \
+						attributes |= attr;                \
 				} else if (code == code2) {               \
-						*piecep |= cat2;                    \
-						categories |= cat;                \
+						*piecep |= attr2;                    \
+						attributes |= attr;                \
 				} else if (code != 'X') {                 \
 						return -1;                        \
 				}                                         \
@@ -68,21 +68,21 @@ parse_piece(piece_str, piecep)
 		char *piece_str;
 		piece_t *piecep;
 {
-        piece_t categories;
+        piece_t attributes;
 
         *piecep = 0;
-        categories = 0;
+        attributes = 0;
 
-        SET_CATEGORY(*piece_str, 'B', BLACK, 'W', WHITE, COLOR); 
+        SET_ATTRIBUTE(*piece_str, 'B', BLACK, 'W', WHITE, COLOR); 
         piece_str++;
-        SET_CATEGORY(*piece_str, 'R', ROUND, 'S', SQUARE, SHAPE);
+        SET_ATTRIBUTE(*piece_str, 'R', ROUND, 'S', SQUARE, SHAPE);
         piece_str++;
-        SET_CATEGORY(*piece_str, 'S', SOLID, 'H', HOLLOW, CENTER);
+        SET_ATTRIBUTE(*piece_str, 'S', SOLID, 'H', HOLLOW, CENTER);
         piece_str++;
-        SET_CATEGORY(*piece_str, 'T', TALL, 'S', SHORT, HEIGHT);
+        SET_ATTRIBUTE(*piece_str, 'T', TALL, 'S', SHORT, HEIGHT);
         piece_str++;
-        if (categories != (COLOR | SHAPE | CENTER | HEIGHT) && *piecep != 0)
-              /* Some, but not all, categories were set. */
+        if (attributes != (COLOR | SHAPE | CENTER | HEIGHT) && *piecep != 0)
+              /* Some, but not all, attributes were set. */
 			  return -1;
 		
 		return 0;
