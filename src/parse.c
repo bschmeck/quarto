@@ -28,17 +28,22 @@ parse(fp, gamepp)
 		Game *gamep;
 		char *row;
 		int i, ret;
+        piece_t *piecep;
 
 		row = (char *)malloc(ROWLEN * sizeof(char));
-		
+        if ((ret = initialize_game(&gamep)) != 0)
+          return ret;
+		piecep = gamep->board;
+
 		for (i = 0; i < NROWS; i++) {
 				fgets(row, ROWLEN, fp);
 				if (strlen(row) != ROWLEN)
 						return -1;
 				if (row[ROWLEN-1] != '\n')
 						return -1;
-				if ((ret = parse_row(row, gamep)) != 0)
+				if ((ret = parse_piece(row, piecep)) != 0)
 						return ret;
+                piecep++;
 		}
 		
 		*gamepp = gamep;
@@ -48,39 +53,37 @@ parse(fp, gamepp)
 #define SET_CATEGORY(code, code1, cat1, code2, cat2, cat) \
 		do {                                              \
 				if (code == code1) {                      \
-				        piece |= cat1;                    \
+				        *piecep |= cat1;                    \
 						categories |= cat;                \
 				} else if (code == code2) {               \
-						piece |= cat2;                    \
+						*piecep |= cat2;                    \
 						categories |= cat;                \
-				} else if (*row != 'X') {                 \
+				} else if (code != 'X') {                 \
 						return -1;                        \
 				}                                         \
 		} while(0)
+
 int
-parse_row(row, gamep)
-		char *row;
-		Game *gamep;
+parse_piece(piece_str, piecep)
+		char *piece_str;
+		piece_t *piecep;
 {
-		int i, j;
-		piece_t piece, categories;
+        piece_t categories;
 
-		for (i = 0; i < NROWS; i++) {
-				piece = 0;
-				categories = 0;
+        *piecep = 0;
+        categories = 0;
 
-				SET_CATEGORY(*row, 'B', BLACK, 'W', WHITE, COLOR); 
-				row++;
-				SET_CATEGORY(*row, 'R', ROUND, 'S', SQUARE, SHAPE);
-				row++;
-				SET_CATEGORY(*row, 'S', SOLID, 'H', HOLLOW, CENTER);
-				row++;
-				SET_CATEGORY(*row, 'T', TALL, 'S', SHORT, HEIGHT);
-				row++;
-				if (categories != 32 && piece != 0)
-						/* Some, but not all, categories were set. */
-						return -1;
-		}
-
+        SET_CATEGORY(*piece_str, 'B', BLACK, 'W', WHITE, COLOR); 
+        piece_str++;
+        SET_CATEGORY(*piece_str, 'R', ROUND, 'S', SQUARE, SHAPE);
+        piece_str++;
+        SET_CATEGORY(*piece_str, 'S', SOLID, 'H', HOLLOW, CENTER);
+        piece_str++;
+        SET_CATEGORY(*piece_str, 'T', TALL, 'S', SHORT, HEIGHT);
+        piece_str++;
+        if (categories != (COLOR | SHAPE | CENTER | HEIGHT) && *piecep != 0)
+              /* Some, but not all, categories were set. */
+			  return -1;
+		
 		return 0;
 }

@@ -9,6 +9,7 @@
 
 int initialize_game(Game **);
 int parse(FILE *, Game **);
+int parse_piece(char *, piece_t *);
 
 #define ROWLEN 17
 

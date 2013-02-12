@@ -25,6 +25,7 @@ main(argc, argv)
         RUN_TEST(test_count_pieces, "COUNT_PIECES");
 		RUN_TEST(test_initialize_game, "INIT_GAME");
 		RUN_TEST(test_parse, "TEST_PARSE");
+		RUN_TEST(test_parse_piece, "TEST_PARSE_PIECE");
 
 		return ret;
 }
