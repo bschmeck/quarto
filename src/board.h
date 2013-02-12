@@ -2,6 +2,10 @@
 #define BOARD_H
 
 typedef unsigned int piece_t;
+typedef struct {
+		piece_t *board;
+		piece_t *remaining;
+} Game;
 
 #define PIECE 1
 #define COLOR 2
