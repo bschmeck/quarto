@@ -40,9 +40,9 @@ parse(fp, gamepp)
 				if (fgets(row, BUFSZ, fp) == NULL)
                         return -1;
 				if (strlen(row) != ROWLEN)
-						return -1;
+						return -2;
 				if (row[ROWLEN-1] != '\n')
-						return -1;
+						return -3;
                 for (j = 0; j < NCOLS; j++) {
                   if ((ret = parse_piece(row, piecep)) != 0)
 						return ret;
@@ -60,7 +60,7 @@ parse(fp, gamepp)
 								  }
 						  }
 						  if (*remainp != 0)
-								  return -1;
+								  return -4;
 				  }
                   piecep++;
                   row += NCHARS;
@@ -80,7 +80,7 @@ parse(fp, gamepp)
 						*piecep |= attr2;                    \
 						attributes |= attr;                \
 				} else if (code != 'X') {                 \
-						return -1;                        \
+						return -5;                        \
 				}                                         \
 		} while(0)
 
@@ -104,7 +104,7 @@ parse_piece(piece_str, piecep)
         piece_str++;
         if (attributes != (COLOR | SHAPE | CENTER | HEIGHT) && *piecep != 0)
               /* Some, but not all, attributes were set. */
-			  return -1;
+			  return -6;
 		
 		return 0;
 }
