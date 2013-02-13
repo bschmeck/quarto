@@ -9,7 +9,7 @@
 		    int _ret;                                          \
 			if ((_ret = IS_WINNING_BOARD(boardp)) != expect) { \
 				printf("%s fails\n", name);					   \
-				printf("  expected %d got %d\n", expect, ret); \
+				printf("  expected %d got %d\n", expect, _ret); \
 				ret = -1;                                      \
 		    }                                                  \
         } while(0)

@@ -7,7 +7,7 @@
 		    int _ret;                                                 \
 			if ((_ret = ALL_MATCH(attribute, a, b, c, d)) != expect) { \
 				printf("%s fails\n", name);					          \
-				printf("  expected %d got %d\n", expect, ret);	      \
+				printf("  expected %d got %d\n", expect, _ret);	      \
 				ret = -1;                                             \
 		    }                                                         \
         } while(0)

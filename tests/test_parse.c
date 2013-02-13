@@ -10,7 +10,7 @@
             _fp = fopen(filename, "r");                               \
 			if ((_ret = parse(_fp, &_gp)) != expect) {				  \
 				printf("%s fails\n", name);					          \
-				printf("  expected %d got %d\n", expect, ret);	      \
+				printf("  expected %d got %d\n", expect, _ret);	      \
 				ret = -1;                                             \
 		    }                                                         \
             fclose(_fp);                                              \
