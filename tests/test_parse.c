@@ -25,25 +25,13 @@
   }                                                                  \
   }while (0)
   
-#define SET_ORDER(expected, i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15) \
+#define SET_ORDER(expected, indices) \
   do {                                                                  \
   piece_t *_expectedp = &expected[0]; \
-  *_expectedp++ = pieces[i0];                                                    \
-  *_expectedp++ = pieces[i1];                                                    \
-  *_expectedp++ = pieces[i2]; \
-  *_expectedp++ = pieces[i3]; \
-  *_expectedp++ = pieces[i4]; \
-  *_expectedp++ = pieces[i5]; \
-  *_expectedp++ = pieces[i6]; \
-  *_expectedp++ = pieces[i7]; \
-  *_expectedp++ = pieces[i8]; \
-  *_expectedp++ = pieces[i9]; \
-  *_expectedp++ = pieces[i10]; \
-  *_expectedp++ = pieces[i11]; \
-  *_expectedp++ = pieces[i12]; \
-  *_expectedp++ = pieces[i13]; \
-  *_expectedp++ = pieces[i14]; \
-  *_expectedp++ = pieces[i15]; \
+  int *_indx = &indices[0]; \
+  int _i; \
+  for (_i = 0; _i < NPIECES; _i++) \
+  *_expectedp++ = pieces[*_indx++];                                                    \
   } while (0)
 
 int
@@ -53,6 +41,7 @@ test_parse()
         Game *gamep;
 		int i, ret;
         piece_t expected_order[NPIECES];
+        piece_t valid_indices[NPIECES] = { 0, 12, 4, 8, 1, 13, 5, 9, 2, 14, 6, 10, 3, 15, 7, 11 };
         piece_t pieces[NPIECES] = PIECES;
 
 		ret = 0;
@@ -93,8 +82,7 @@ test_parse()
         fclose(fp);
 
         /* Check that pieces get placed correctly. */
-        SET_ORDER(expected_order, 0, 12, 4, 8, 1, 13, 5, 9, 2, 14, 6, 10, 3, 15, 7, 11);
-        
+        SET_ORDER(expected_order, valid_indices);
         for (i = 0; i < NPIECES; i++)
           PARSE_VERIFY_TEST(i, gamep->board, expected_order, "PARSE_VERIFY_TEST VALID LOCATION");
 
