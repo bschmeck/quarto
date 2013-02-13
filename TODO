@@ -1,4 +1,5 @@
 [ ] Verify pieces are placed correctly
+[ ] Verify pieces are taken out of play correctly
 [ ] Function to add piece to board & take it out of play
 [ ] One round of piece placement/selection
 [ ] Recursively evaluate piece placement/selection
