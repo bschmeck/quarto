@@ -85,6 +85,27 @@ test_parse()
         SET_ORDER(expected_order, valid_indices);
         for (i = 0; i < NPIECES; i++)
           PARSE_VERIFY_TEST(i, gamep->board, expected_order, "PARSE_VERIFY_TEST VALID LOCATION");
+        /* Check that pieces are removed from the game correctly. */
+        if (COUNT_PIECES(gamep->remaining) != 0) {
+          printf("PARSE_VERIFY_TEST VALID REMAINING fails\n");
+          printf("    expected 0 got %d\n", COUNT_PIECES(gamep->remaining));
+        }
+
+        /* Load up an empty game. */
+        fp = fopen("../tests/test_files/no_pieces.quarto", "r");
+        /* Don't bother checking return value, we've already test that it parses correctly. */
+        parse(fp, &gamep);
+        fclose(fp);
+
+        /* Check that pieces get placed correctly. */
+        memset(&expected_order, 0, NPIECES * sizeof(piece_t));
+        for (i = 0; i < NPIECES; i++)
+          PARSE_VERIFY_TEST(i, gamep->board, expected_order, "PARSE_VERIFY_TEST EMPTY LOCATION");
+        /* Check that pieces are removed from the game correctly. */
+        if (COUNT_PIECES(gamep->remaining) != NPIECES) {
+          printf("PARSE_VERIFY_TEST EMPTY REMAINING fails\n");
+          printf("    expected %d got %d\n", NPIECES, COUNT_PIECES(gamep->remaining));
+        }
 
         return ret;
 }
