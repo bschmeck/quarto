@@ -16,13 +16,48 @@
             fclose(_fp);                                              \
         } while(0)
 
+#define PARSE_VERIFY_TEST(index, board, expected, name)              \
+  do {                                                               \
+  if (board[index] != expected[index]) {                             \
+  printf("%s %d fails\n", name, index);                              \
+  printf("    expected %d got %d\n", expected[index], board[index]); \
+  ret = -1;                                                          \
+  }                                                                  \
+  }while (0)
+  
+#define SET_ORDER(expected, i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15) \
+  do {                                                                  \
+  piece_t *_expectedp = &expected[0]; \
+  *_expectedp++ = pieces[i0];                                                    \
+  *_expectedp++ = pieces[i1];                                                    \
+  *_expectedp++ = pieces[i2]; \
+  *_expectedp++ = pieces[i3]; \
+  *_expectedp++ = pieces[i4]; \
+  *_expectedp++ = pieces[i5]; \
+  *_expectedp++ = pieces[i6]; \
+  *_expectedp++ = pieces[i7]; \
+  *_expectedp++ = pieces[i8]; \
+  *_expectedp++ = pieces[i9]; \
+  *_expectedp++ = pieces[i10]; \
+  *_expectedp++ = pieces[i11]; \
+  *_expectedp++ = pieces[i12]; \
+  *_expectedp++ = pieces[i13]; \
+  *_expectedp++ = pieces[i14]; \
+  *_expectedp++ = pieces[i15]; \
+  } while (0)
+
 int
 test_parse()
 {
-		int ret;
+        FILE *fp;
+        Game *gamep;
+		int i, ret;
+        piece_t expected_order[NPIECES];
+        piece_t pieces[NPIECES] = PIECES;
 
 		ret = 0;
 
+        /* Check that valid/invalid game boards generate the correct errors. */
 		PARSE_TEST("../tests/test_files/empty.quarto", -1, "PARSE_TEST EMPTY FILE");
 		PARSE_TEST("../tests/test_files/long_row.quarto", -2, "PARSE_TEST LONG ROW");
 		PARSE_TEST("../tests/test_files/short_row.quarto", -2, "PARSE_TEST SHORT ROW");
@@ -46,10 +81,22 @@ test_parse()
 		PARSE_TEST("../tests/test_files/invalid_piece2.quarto", -6, "PARSE_TEST INVALID PIECE TWO");
 		PARSE_TEST("../tests/test_files/invalid_piece3.quarto", -6, "PARSE_TEST INVALID PIECE THREE");
 		PARSE_TEST("../tests/test_files/invalid_piece4.quarto", -6, "PARSE_TEST INVALID PIECE FOUR");
-		PARSE_TEST("../tests/test_files/valid.quarto", 0, "PARSE_TEST VALID ROW");
+		PARSE_TEST("../tests/test_files/valid.quarto", 0, "PARSE_TEST VALID");
 		PARSE_TEST("../tests/test_files/no_pieces.quarto", 0, "PARSE_TEST NO PIECES");
 		PARSE_TEST("../tests/test_files/one_row.quarto", -1, "PARSE_TEST ONE ROW");
 		PARSE_TEST("../tests/test_files/dup_pieces.quarto", -4, "PARSE_TEST DUP PIECES");
-		
+
+        /* Load up a full, valid game. */
+        fp = fopen("../tests/test_files/valid.quarto", "r");
+        /* Don't bother checking return value, we've already test that it parses correctly. */
+        parse(fp, &gamep);
+        fclose(fp);
+
+        /* Check that pieces get placed correctly. */
+        SET_ORDER(expected_order, 0, 12, 4, 8, 1, 13, 5, 9, 2, 14, 6, 10, 3, 15, 7, 11);
+        
+        for (i = 0; i < NPIECES; i++)
+          PARSE_VERIFY_TEST(i, gamep->board, expected_order, "PARSE_VERIFY_TEST VALID LOCATION");
+
         return ret;
 }
