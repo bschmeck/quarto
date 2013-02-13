@@ -28,7 +28,7 @@ parse(fp, gamepp)
 		Game *gamep;
 		char *row;
 		int i, j, ret;
-        piece_t *piecep;
+        piece_t *piecep, *remainp;
 
 #define BUFSZ 80
 		row = (char *)malloc(BUFSZ * sizeof(char));
@@ -46,6 +46,22 @@ parse(fp, gamepp)
                 for (j = 0; j < NCOLS; j++) {
                   if ((ret = parse_piece(row, piecep)) != 0)
 						return ret;
+				  /* 
+				   * Remove the piece we just parsed (if we got a piece) from
+				   * the game's list of remaining pieces.  It's an error if we
+				   * can't find it (meaning the file contains duplicate pieces.)
+				   */
+				  if (IS_PIECE(*piecep)) {
+						  remainp = gamep->remaining + 16;
+						  while (remainp-- > gamep->remaining) {
+								  if (*remainp == *piecep) {
+										  *remainp = 0;
+										  break;
+								  }
+						  }
+						  if (*remainp != 0)
+								  return -1;
+				  }
                   piecep++;
                   row += NCHARS;
                 }

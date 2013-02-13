@@ -49,5 +49,7 @@ test_parse()
 		PARSE_TEST("../tests/test_files/valid.quarto", 0, "PARSE_TEST VALID ROW");
 		PARSE_TEST("../tests/test_files/no_pieces.quarto", 0, "PARSE_TEST NO PIECES");
 		PARSE_TEST("../tests/test_files/one_row.quarto", -1, "PARSE_TEST ONE ROW");
+		PARSE_TEST("../tests/test_files/dup_pieces.quarto", -1, "PARSE_TEST DUP PIECES");
+		
         return ret;
 }
