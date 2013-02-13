@@ -37,7 +37,8 @@ parse(fp, gamepp)
 		piecep = gamep->board;
 
 		for (i = 0; i < NROWS; i++) {
-				fgets(row, BUFSZ, fp);
+				if (fgets(row, BUFSZ, fp) == NULL)
+                        return -1;
 				if (strlen(row) != ROWLEN)
 						return -1;
 				if (row[ROWLEN-1] != '\n')
