@@ -11,6 +11,7 @@ int initialize_game(Game **);
 int parse(FILE *, Game **);
 int parse_piece(char *, piece_t *);
 
+#define NCHARS 4
 #define ROWLEN 17
 
 #endif

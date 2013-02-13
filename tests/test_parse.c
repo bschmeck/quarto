@@ -46,7 +46,7 @@ test_parse()
 		PARSE_TEST("../tests/test_files/invalid_piece2.quarto", -1, "PARSE_TEST INVALID PIECE TWO");
 		PARSE_TEST("../tests/test_files/invalid_piece3.quarto", -1, "PARSE_TEST INVALID PIECE THREE");
 		PARSE_TEST("../tests/test_files/invalid_piece4.quarto", -1, "PARSE_TEST INVALID PIECE FOUR");
-		PARSE_TEST("../tests/test_files/valid_row.quarto", -1, "PARSE_TEST VALID ROW");
-		PARSE_TEST("../tests/test_files/no_pieces.quarto", -1, "PARSE_TEST NO PIECES");
+		PARSE_TEST("../tests/test_files/valid.quarto", 0, "PARSE_TEST VALID ROW");
+		PARSE_TEST("../tests/test_files/no_pieces.quarto", 0, "PARSE_TEST NO PIECES");
 		return ret;
 }

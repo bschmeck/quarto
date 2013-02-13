@@ -27,23 +27,27 @@ parse(fp, gamepp)
 {
 		Game *gamep;
 		char *row;
-		int i, ret;
+		int i, j, ret;
         piece_t *piecep;
 
-		row = (char *)malloc(ROWLEN * sizeof(char));
+#define BUFSZ 80
+		row = (char *)malloc(BUFSZ * sizeof(char));
         if ((ret = initialize_game(&gamep)) != 0)
           return ret;
 		piecep = gamep->board;
 
 		for (i = 0; i < NROWS; i++) {
-				fgets(row, ROWLEN, fp);
+				fgets(row, BUFSZ, fp);
 				if (strlen(row) != ROWLEN)
 						return -1;
 				if (row[ROWLEN-1] != '\n')
 						return -1;
-				if ((ret = parse_piece(row, piecep)) != 0)
+                for (j = 0; j < NCOLS; j++) {
+                  if ((ret = parse_piece(row, piecep)) != 0)
 						return ret;
-                piecep++;
+                  piecep++;
+                  row += NCHARS;
+                }
 		}
 		
 		*gamepp = gamep;
