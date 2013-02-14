@@ -29,9 +29,11 @@
   do {                                                                  \
   piece_t *_expectedp = &expected[0]; \
   int *_indx = &indices[0]; \
-  int _i; \
-  for (_i = 0; _i < NPIECES; _i++) \
-  *_expectedp++ = pieces[*_indx++];                                                    \
+  int _i, _j;                         \
+  for (_i = 0; _i < NPIECES; _i++) {  \
+    _j = *_indx++; \
+    *_expectedp++ = _j >= 0 ? pieces[_j] : 0;   \
+  } \
   } while (0)
 
 int
@@ -41,7 +43,9 @@ test_parse()
         Game *gamep;
 		int i, ret;
         piece_t expected_order[NPIECES];
-        piece_t valid_indices[NPIECES] = { 0, 12, 4, 8, 1, 13, 5, 9, 2, 14, 6, 10, 3, 15, 7, 11 };
+        int valid_indices[NPIECES] = { 0, 12, 4, 8, 1, 13, 5, 9, 2, 14, 6, 10, 3, 15, 7, 11 };
+        int in_progress_indices[NPIECES] = { 0, 12, -1, 8, 1, -1, 5, 9, -1, 14, 6, -1, 3, -1, 7, -1 };
+        int in_progress_remain_indices[NPIECES] = { -1, -1, 2, -1, 4, -1, -1, -1, -1, -1, 10, 11, -1, 13, -1, 15 };
         piece_t pieces[NPIECES] = PIECES;
 
 		ret = 0;
@@ -72,6 +76,7 @@ test_parse()
 		PARSE_TEST("../tests/test_files/invalid_piece4.quarto", -6, "PARSE_TEST INVALID PIECE FOUR");
 		PARSE_TEST("../tests/test_files/valid.quarto", 0, "PARSE_TEST VALID");
 		PARSE_TEST("../tests/test_files/no_pieces.quarto", 0, "PARSE_TEST NO PIECES");
+		PARSE_TEST("../tests/test_files/in_progress.quarto", 0, "PARSE_TEST IN PROGRESS");
 		PARSE_TEST("../tests/test_files/one_row.quarto", -1, "PARSE_TEST ONE ROW");
 		PARSE_TEST("../tests/test_files/dup_pieces.quarto", -4, "PARSE_TEST DUP PIECES");
 
@@ -106,6 +111,25 @@ test_parse()
           printf("PARSE_VERIFY_TEST EMPTY REMAINING fails\n");
           printf("    expected %d got %d\n", NPIECES, COUNT_PIECES(gamep->remaining));
         }
+
+        /* Load up an in-progress game. */
+        fp = fopen("../tests/test_files/in_progress.quarto", "r");
+        /* Don't bother checking return value, we've already tested that it parses correctly. */
+        parse(fp, &gamep);
+        fclose(fp);
+
+        /* Check that pieces get placed correctly. */
+        SET_ORDER(expected_order, in_progress_indices);
+        for (i = 0; i < NPIECES; i++)
+          PARSE_VERIFY_TEST(i, gamep->board, expected_order, "PARSE_VERIFY_TEST IN PROGRESS LOCATION");
+        /* Check that pieces are removed from the game correctly. */
+        if (COUNT_PIECES(gamep->remaining) != 6) {
+          printf("PARSE_VERIFY_TEST IN PROGRESS REMAINING fails\n");
+          printf("    expected 6 got %d\n", COUNT_PIECES(gamep->remaining));
+        }
+        SET_ORDER(expected_order, in_progress_remain_indices);
+        for (i = 0; i < NPIECES; i++)
+          PARSE_VERIFY_TEST(i, gamep->remaining, expected_order, "PARSE_VERIFY_TEST IN PROGRESS REMAINING");
 
         return ret;
 }
