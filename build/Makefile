@@ -4,14 +4,16 @@ builddir = .
 srcdir = $(topdir)/src
 testdir = $(topdir)/tests
 
-DEPS = $(srcdir)/board.h $(srcdir)/parse.h $(testdir)/test.h
-QUARTO_OBJS = parse.o
-TEST_OBJS = test.o test_all_match.o test_count_pieces.o test_initialize_game.o test_is_quarto.o test_is_winning_board.o test_parse.o test_parse_piece.o
+DEPS = $(srcdir)/board.h $(srcdir)/move.h $(srcdir)/parse.h $(testdir)/test.h
+QUARTO_OBJS = move.o parse.o
+TEST_OBJS = test.o test_all_match.o test_count_pieces.o test_initialize_game.o test_is_quarto.o test_is_winning_board.o test_parse.o test_parse_piece.o test_possible_moves.o
 
 CC=gcc
 CFLAGS=-I$(srcdir) -I$(builddir) -ggdb3
 CFLAGS_TEST=$(CFLAGS)
 
+move.o: $(srcdir)/move.c $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
 parse.o: $(srcdir)/parse.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 

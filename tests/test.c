@@ -26,6 +26,7 @@ main(argc, argv)
 		RUN_TEST(test_initialize_game, "INIT_GAME");
 		RUN_TEST(test_parse, "TEST_PARSE");
 		RUN_TEST(test_parse_piece, "TEST_PARSE_PIECE");
+		RUN_TEST(test_possible_moves, "TEST_POSSIBLE_MOVES");
 
 		return ret;
 }
