@@ -33,3 +33,13 @@ possible_moves(gamep, movepp)
 
   return nmoves;
 }
+
+int
+count_remaining_moves(gamep)
+     Game *gamep;
+{
+  int count, remaining;
+  int move_counts[NMOVE_COUNTS] = MOVE_COUNTS;
+  
+  return move_counts[COUNT_PIECES(gamep->remaining)];
+}
