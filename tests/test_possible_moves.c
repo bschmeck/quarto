@@ -24,8 +24,6 @@
 int
 test_possible_moves()
 {
-  FILE *fp;
-  Game *gamep;
   int ret;
   
   ret = 0;

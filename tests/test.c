@@ -15,7 +15,7 @@ main(argc, argv)
 		char *argv;
 		int argc; 
 {
-		int ret, t_ret;
+		int ret;
 
 		ret = 0;
 
