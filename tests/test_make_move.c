@@ -19,6 +19,11 @@
   printf("    expected %d got %d\n", expect, _ret); \
   ret = -1; \
   } \
+  if ((_ret = make_move(_gp, &move)) == 0) { \
+  printf("%s fails\n", name); \
+  printf("    moving twice succeeded\n"); \
+  ret = -1;                               \
+  } \
   } while (0)
 
 int
