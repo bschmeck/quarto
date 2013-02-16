@@ -28,6 +28,7 @@ main(argc, argv)
 		RUN_TEST(test_parse_piece, "TEST_PARSE_PIECE");
 		RUN_TEST(test_possible_moves, "TEST_POSSIBLE_MOVES");
 		RUN_TEST(test_count_remaining_moves, "TEST_COUNT_REMAINING_MOVES");
+        RUN_TEST(test_make_move, "TEST_MAKE_MOVE");
 
 		return ret;
 }

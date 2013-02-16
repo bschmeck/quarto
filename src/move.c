@@ -43,3 +43,26 @@ count_remaining_moves(gamep)
   
   return move_counts[COUNT_PIECES(gamep->remaining)];
 }
+
+int
+make_move(gamep, movep)
+     Game *gamep;
+     Move *movep;
+{
+  int i, ret;
+
+  ret = 0;
+
+  if (IS_PIECE(gamep->board[movep->location]))
+    return -1;
+  for (i = 0; i < NPIECES; i++)
+    if (gamep->remaining[i] == movep->piece)
+      break;
+  if (i == NPIECES)
+    return -2;
+
+  gamep->board[movep->location] = movep->piece;
+  gamep->remaining[i] = 0;
+  
+  return ret;
+}
