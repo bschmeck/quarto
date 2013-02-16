@@ -27,9 +27,12 @@ test_possible_moves()
   FILE *fp;
   Game *gamep;
   int ret;
-
+  
+  ret = 0;
+  
   POSSIBLE_MOVES_COUNT_TEST("../tests/test_files/valid.quarto", 0, "POSSIBLE_MOVES COUNT_TEST FULL BOARD");
   POSSIBLE_MOVES_COUNT_TEST("../tests/test_files/no_pieces.quarto", 256, "POSSIBLE_MOVES_COUNT_TEST EMPTY BOARD");
   POSSIBLE_MOVES_COUNT_TEST("../tests/test_files/in_progress.quarto", 36, "POSSIBLE_MOVES_COUNT_TEST IN PROGRESS");
  
+  return ret;
 }
