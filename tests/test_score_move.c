@@ -62,5 +62,13 @@ test_score_move()
   move.location = 15;
   SCORE_MOVE_TEST("../tests/test_files/score_move_one.quarto", move, 11, "SCORE_MOVE_TEST FILE ONE");
   
+  move.piece = BLACK | SQUARE | HOLLOW | SHORT;
+  move.location = 14;
+  SCORE_MOVE_TEST("../tests/test_files/one_move_left.quarto", move, 1, "SCORE_MOVE_TEST ONE MOVE LEFT");
+
+  move.piece = WHITE | ROUND | HOLLOW | SHORT;
+  move.location = 14;
+  SCORE_MOVE_TEST("../tests/test_files/cats_game.quarto", move, 0, "SCORE_MOVE_TEST CATS GAME");
+    
   return ret;
 }
