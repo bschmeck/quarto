@@ -79,8 +79,7 @@ score_move(gamep, movep, mymove, scorep)
 
   if ((ret = initialize_game(&mygame)) != 0)
     return ret;
-  memcpy(mygame, gamep, sizeof(Game));
-  
+
   scale = mymove ? 1 : -1;
   
   if ((ret = make_move(gamep, movep)) != 0)
@@ -92,8 +91,10 @@ score_move(gamep, movep, mymove, scorep)
     score = 0;
     nmoves = possible_moves(gamep, &possible);
     for (i = 0; i < nmoves; i++) {
+      memcpy(mygame, gamep, sizeof(Game));
+  
 			/* Toggle mymove when scoring the next round of moves. */
-			if ((ret = score_move(gamep, &possible[i], (mymove & 1) ^ 1, &t_score)) != 0)
+			if ((ret = score_move(mygame, &possible[i], (mymove & 1) ^ 1, &t_score)) != 0)
 					return ret;
 			new_score = score + t_score;
 

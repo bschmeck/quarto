@@ -54,5 +54,13 @@ test_score_move()
   move.location = 12;
   SCORE_MOVE_TEST("../tests/test_files/three_pieces.quarto", move, MAX_SCORE, "SCORE_MOVE_TEST THREE PIECES");
 
+  move.piece = WHITE | ROUND | SOLID | TALL;
+  move.location = 3;
+  SCORE_MOVE_TEST("../tests/test_files/score_move_one.quarto", move, 36, "SCORE_MOVE_TEST FILE ONE");
+  
+  move.piece = WHITE | ROUND | SOLID | TALL;
+  move.location = 15;
+  SCORE_MOVE_TEST("../tests/test_files/score_move_one.quarto", move, 4, "SCORE_MOVE_TEST FILE ONE");
+  
   return ret;
 }
