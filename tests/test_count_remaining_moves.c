@@ -30,7 +30,7 @@ test_count_remaining_moves()
   ret = 0;
 
   COUNT_REMAINING_MOVES_TEST("../tests/test_files/valid.quarto", 0, "COUNT_REMAINING_MOVES_TEST FULL BOARD");
-  COUNT_REMAINING_MOVES_TEST("../tests/test_files/no_pieces.quarto", INT32_MAX, "COUNT_REMAINING_MOVES_TEST EMPTY BOARD");
+  COUNT_REMAINING_MOVES_TEST("../tests/test_files/no_pieces.quarto", INT32_MAX - 1, "COUNT_REMAINING_MOVES_TEST EMPTY BOARD");
   COUNT_REMAINING_MOVES_TEST("../tests/test_files/in_progress.quarto", 6*6*5*5*4*4*3*3*2*2, "COUNT_REMAINING_MOVES_TEST IN PROGRESS");
  
   return ret;

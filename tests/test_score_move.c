@@ -56,11 +56,11 @@ test_score_move()
 
   move.piece = WHITE | ROUND | SOLID | TALL;
   move.location = 3;
-  SCORE_MOVE_TEST("../tests/test_files/score_move_one.quarto", move, 36, "SCORE_MOVE_TEST FILE ONE");
+  SCORE_MOVE_TEST("../tests/test_files/score_move_one.quarto", move, 37, "SCORE_MOVE_TEST FILE ONE");
   
   move.piece = WHITE | ROUND | SOLID | TALL;
   move.location = 15;
-  SCORE_MOVE_TEST("../tests/test_files/score_move_one.quarto", move, 4, "SCORE_MOVE_TEST FILE ONE");
+  SCORE_MOVE_TEST("../tests/test_files/score_move_one.quarto", move, 11, "SCORE_MOVE_TEST FILE ONE");
   
   return ret;
 }

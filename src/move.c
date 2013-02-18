@@ -86,7 +86,7 @@ score_move(gamep, movep, mymove, scorep)
 	  return ret;
   
   if (IS_WINNING_BOARD(gamep->board)) {
-    score = scale * count_remaining_moves(gamep);
+    score = scale * (1 + count_remaining_moves(gamep));
   } else {
     score = 0;
     nmoves = possible_moves(gamep, &possible);

@@ -30,14 +30,14 @@ int score_move(Game *, Move *, int, int *);
  14400, \
    518400, \
  25401600, \
- MAX_SCORE, \
- MAX_SCORE, \
- MAX_SCORE, \
- MAX_SCORE, \
- MAX_SCORE, \
- MAX_SCORE, \
- MAX_SCORE, \
- MAX_SCORE, \
- MAX_SCORE }
+ (MAX_SCORE - 1), \
+ (MAX_SCORE - 1), \
+ (MAX_SCORE - 1), \
+ (MAX_SCORE - 1), \
+ (MAX_SCORE - 1), \
+ (MAX_SCORE - 1), \
+ (MAX_SCORE - 1), \
+ (MAX_SCORE - 1), \
+ (MAX_SCORE - 1) }
 
 #endif
