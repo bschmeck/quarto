@@ -65,3 +65,53 @@ make_move(gamep, movep)
   
   return ret;
 }
+
+int
+score_move(gamep, movep, mymove, scorep)
+     Game *gamep;
+     Move *movep;
+     int mymove;
+     int *scorep;
+{
+  Game *mygame;
+  Move *possible;
+  int i, new_score, nmoves, ret, scale, score, t_score;
+
+  if ((ret = initialize_game(&mygame)) != 0)
+    return ret;
+  memcpy(mygame, gamep, sizeof(Game));
+  
+  scale = mymove ? 1 : -1;
+  
+  if ((ret = make_move(gamep, movep)) != 0)
+	  return ret;
+  
+  if (IS_WINNING_BOARD(gamep->board)) {
+    score = scale * count_remaining_moves(gamep);
+  } else {
+    score = 0;
+    nmoves = possible_moves(gamep, &possible);
+    for (i = 0; i < nmoves; i++) {
+			/* Toggle mymove when scoring the next round of moves. */
+			if ((ret = score_move(gamep, &possible[i], (mymove & 1) ^ 1, &t_score)) != 0)
+					return ret;
+			new_score = score + t_score;
+
+			/*
+			 * We're possibly dealing with large numbers.  Detect
+			 * integer overflows and just cap score at INT32_{MAX|MIN}
+			 */
+			if (t_score < 0 && new_score > score)
+					score = INT32_MIN;
+			else if (t_score > 0 && new_score < score)
+					score = MAX_SCORE;
+			else
+					score = new_score;
+    }
+    free(possible);
+  }
+
+  *scorep = score;
+
+  return 0;
+}

@@ -29,6 +29,7 @@ main(argc, argv)
 		RUN_TEST(test_possible_moves, "TEST_POSSIBLE_MOVES");
 		RUN_TEST(test_count_remaining_moves, "TEST_COUNT_REMAINING_MOVES");
         RUN_TEST(test_make_move, "TEST_MAKE_MOVE");
+        RUN_TEST(test_score_move, "TEST_SCORE_MOVE");
 
 		return ret;
 }
