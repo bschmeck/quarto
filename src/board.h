@@ -38,7 +38,7 @@ typedef unsigned int piece_t;
           (WHITE | SQUARE | SOLID | TALL),   \
           (WHITE | SQUARE | SOLID | SHORT),  \
           (WHITE | SQUARE | HOLLOW | TALL),  \
-			  (WHITE | SQUARE | HOLLOW | SHORT)}
+		  (WHITE | SQUARE | HOLLOW | SHORT) }
 
 /* Check whether four pieces all share a given attribute */
 #define ALL_MATCH(attr, a, b, c, d) (IS_PIECE(a) && IS_PIECE(b) && IS_PIECE(c) && IS_PIECE(d) && (((a & attr) ^ (b & attr)) == 0) && (((a & attr) ^ (c & attr)) == 0) && (((a & attr) ^ (d & attr)) == 0))

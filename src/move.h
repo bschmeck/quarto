@@ -13,6 +13,7 @@ typedef struct {
   int location;
 } Move;
 
+int choose_piece(Game *, piece_t *, int *);
 int count_remaining_moves(Game *);  
 int make_move(Game *, Move *);
 int possible_moves(Game *, Move **);

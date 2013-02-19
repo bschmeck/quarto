@@ -1,5 +1,61 @@
 #include "move.h"
 
+/*
+ * For a given game, choose the best piece to give to our opponent.
+ */
+int
+choose_piece(gamep, piecep, scorep)
+     Game *gamep;
+     piece_t *piecep;
+     int *scorep;
+{
+  Move *moves;
+  int i, indx, new_score, nmoves, ret, score;
+  int scores[NPIECES];
+  piece_t piece;
+  
+  /* 
+   * For every remaining piece, sum the scores of the possible moves our
+   * opponent could make.  The piece with the highest sum is the winner.
+   */
+  memset(scores, 0, NPIECES);
+  if ((nmoves = possible_moves(gamep, &moves)) < 0)
+    return nmoves;
+  
+  /*
+   * for move in possible moves:
+   *  score it and update scores[move.piece >> 1] (careful for overflowing)
+   * choose highest scoring piece from scores
+   */
+  for (i = 0; i < nmoves; i++) {
+    indx = moves[i].piece >> 1;
+    if ((ret = score_move(gamep, &(moves[i]), 0, &score)) != 0)
+      return ret;
+
+    new_score = scores[indx] + score;
+    if (score < 0 && new_score > scores[indx] )
+      scores[indx] = INT32_MIN;
+    else if (score > 0 && new_score < scores[indx])
+      scores[indx] = MAX_SCORE;
+    else
+      scores[indx] = new_score;
+  }
+
+  *scorep = INT32_MIN;
+  for (i = 0; i < NPIECES; i++) {
+    if (!IS_PIECE(gamep->remaining[i]))
+      continue;
+    piece = gamep->remaining[i];
+    if (scores[piece >> 1] > *scorep) {
+      *scorep = scores[piece >> 1];
+      *piecep = piece;
+    }
+    /* TODO: Break ties randomly. */
+  }
+  
+  return 0;
+}
+
 int
 possible_moves(gamep, movepp)
      Game *gamep;
