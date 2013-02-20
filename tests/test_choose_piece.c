@@ -35,6 +35,7 @@ test_choose_piece()
   ret = 0;
   
   CHOOSE_PIECE_TEST("../tests/test_files/cats_game.quarto", (WHITE | ROUND | HOLLOW | SHORT), "CHOOSE_PIECE CATS GAME");
+  CHOOSE_PIECE_TEST("../tests/test_files/score_move_one.quarto", 0, "CHOOSE_PIECE SCORE MOVE ONE");
   
   return ret;
 }
