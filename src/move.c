@@ -9,10 +9,14 @@ choose_piece(gamep, piecep, scorep)
      piece_t *piecep;
      int *scorep;
 {
+		Game *mygame;
   Move *moves;
   int i, indx, new_score, nmoves, ret, score;
   int scores[NPIECES];
   piece_t piece;
+  
+  if ((ret = initialize_game(&mygame)) != 0)
+		  return ret;
   
   /* 
    * For every remaining piece, sum the scores of the possible moves our
@@ -29,7 +33,8 @@ choose_piece(gamep, piecep, scorep)
    */
   for (i = 0; i < nmoves; i++) {
     indx = moves[i].piece >> 1;
-    if ((ret = score_move(gamep, &(moves[i]), 0, &score)) != 0)
+	memcpy(mygame, gamep, sizeof(Game));
+	if ((ret = score_move(mygame, &(moves[i]), 0, &score)) != 0)
       return ret;
 
     new_score = scores[indx] + score;
