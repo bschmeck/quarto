@@ -1,6 +1,65 @@
 #include "move.h"
 
 /*
+ * Given a piece, place it on the board and choose the opponent's next piece.
+ */
+int
+take_turn(gamep, piece, locationp, next_piecep)
+     Game *gamep;
+     piece_t piece;
+     int *locationp;
+     piece_t *next_piecep;
+{
+  Game *mygame;
+  Move move;
+  int high_score, i, ret, score;
+  piece_t next_piece;
+  
+  if ((ret = initialize_game(&mygame)) != 0)
+    return ret;
+  move.piece = piece;
+  
+  for (i = 0; i < BOARD_SIZE; i++) {
+    if (IS_PIECE(gamep->board[i]))
+      continue;
+    memcpy(mygame, gamep, sizeof(Game));
+    move.location = i;
+    if ((ret = make_move(mygame, &move)) != 0)
+      return ret;
+    /* If we can win the game with this piece, we're done. */
+    if (IS_WINNING_BOARD(mygame->board)) {
+      free(mygame);
+      *locationp = i;
+      *next_piecep = 0;
+      return 0;
+    }
+  }
+
+  /* 
+   * We can't win with this piece.  We need to find the combination of location
+   * for this piece plus next piece for our opponent with the highest score.
+   */
+  high_score = INT32_MIN;
+  for (i = 0; i < BOARD_SIZE; i++) {
+    if (IS_PIECE(gamep->board[i]))
+      continue;
+    memcpy(mygame, gamep, sizeof(Game));
+    move.location = i;
+    if ((ret = make_move(mygame, &move)) != 0)
+      return ret;
+    choose_piece(mygame, &next_piece, &score);
+    if (score > high_score) {
+      *locationp = i;
+      *next_piecep = next_piece;
+      high_score = score;
+    }
+    /* TODO: Break ties randomly. */
+  }
+  
+  return 0;
+}
+
+/*
  * For a given game, choose the best piece to give to our opponent.
  */
 int
@@ -57,7 +116,7 @@ choose_piece(gamep, piecep, scorep)
     }
     /* TODO: Break ties randomly. */
   }
-  
+
   return 0;
 }
 

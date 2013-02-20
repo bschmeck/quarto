@@ -31,6 +31,7 @@ main(argc, argv)
         RUN_TEST(test_make_move, "TEST_MAKE_MOVE");
         RUN_TEST(test_score_move, "TEST_SCORE_MOVE");
         RUN_TEST(test_choose_piece, "TEST_CHOOSE_PIECE");
+        RUN_TEST(test_take_turn, "TEST_TAKE_TURN");
 
 		return ret;
 }
