@@ -13,6 +13,7 @@ int test_is_winning_board(void);
 int test_make_move(void);
 int test_parse(void);
 int test_parse_piece(void);
+int test_piece_attributes(void);
 int test_possible_moves(void);
 int test_score_move(void);
 int test_take_turn(void);

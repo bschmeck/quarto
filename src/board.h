@@ -21,6 +21,11 @@ typedef unsigned int piece_t;
 #define TALL (HEIGHT | PIECE)
 #define SHORT (PIECE)
 
+#define PIECE_COLOR(a) (a & BLACK)
+#define PIECE_SHAPE(a) (a & ROUND)
+#define PIECE_CENTER(a) (a & SOLID)
+#define PIECE_HEIGHT(a) (a & TALL)
+
 #define NPIECES 16
 #define PIECES {						   \
 		  (BLACK | ROUND | SOLID | TALL),    \
