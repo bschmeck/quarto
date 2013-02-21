@@ -26,8 +26,12 @@ take_turn(gamep, piece, locationp, next_piecep)
     move.location = i;
     if ((ret = make_move(mygame, &move)) != 0)
       return ret;
-    /* If we can win the game with this piece, we're done. */
-    if (IS_WINNING_BOARD(mygame->board)) {
+    /* 
+     * If we can win the game with this piece, or if the board is now full,
+     * we're done.
+     */
+    if (IS_WINNING_BOARD(mygame->board) ||
+        COUNT_PIECES(mygame->board) == BOARD_SIZE) {
       free(mygame);
       *locationp = i;
       *next_piecep = 0;
