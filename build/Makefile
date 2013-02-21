@@ -26,6 +26,10 @@ explain.o: $(srcdir)/explain.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 explain: explain.o $(QUARTO_OBJS)
 	$(CC) -o $(bindir)/$@ $^ $(CFLAGS)
+repl.o: $(srcdir)/repl.c $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
+repl: repl.o $(QUARTO_OBJS)
+	$(CC) -o $(bindir)/$@ $^ $(CFLAGS)
 
 # Benchmarking Objects and Executables
 benchmark.o: $(benchdir)/benchmark.c $(DEPS)
