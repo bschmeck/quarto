@@ -21,6 +21,12 @@ move.o: $(srcdir)/move.c $(DEPS)
 parse.o: $(srcdir)/parse.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
+# Quarto Utils
+explain.o: $(srcdir)/explain.c $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
+explain: explain.o $(QUARTO_OBJS)
+	$(CC) -o $(bindir)/$@ $^ $(CFLAGS)
+
 # Benchmarking Objects and Executables
 benchmark.o: $(benchdir)/benchmark.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS_BENCH)
