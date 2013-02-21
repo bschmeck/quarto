@@ -3,20 +3,25 @@
 
 #include "bench.h"
 
+#define FILENAME_FMT "../bench/bench_files/%d_pieces.quarto"
+
 int
 main(argc, argv)
-     char *argv;
+     char **argv;
      int argc;
 {
   FILE *fp;
   Game *gamep;
+  char filename[50];
   clock_t tic, toc;
   double elapsed;
-  int i, loc, niters, ret;
+  int i, loc, niters, npieces, ret;
   piece_t piece, next_piece;
-  char *filename = "../bench/bench_files/one_piece.quarto";
-
+  
   niters = 100;
+  npieces = atoi(argv[1]);
+  sprintf(filename, FILENAME_FMT, npieces);
+  printf("Benchmark %s\n", filename);
   
   /*
    * Start by benchmarking take_turn.  Eventually we'll benchmark the lower level
