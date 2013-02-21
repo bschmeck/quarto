@@ -6,6 +6,7 @@
 #define BUF_SZ 80
 
 int get_piece(piece_t *);
+int opponents_turn(Move *);
 void print_move(Move *);
 
 #define SET_ATTRIBUTE(piece, attr, c, upper1, attr1, upper2, attr2)  \
@@ -53,6 +54,30 @@ get_piece(piecep)
   return 0;
 }
 
+int
+opponents_turn(movep)
+     Move *movep;
+{
+  char buf[BUF_SZ];
+  int col, row;
+  
+  printf("Chosen piece: %c%c%c%c\n",
+           (PIECE_COLOR(movep->piece) == BLACK) ? 'B' : 'W',
+           (PIECE_SHAPE(movep->piece) == ROUND) ? 'R' : 'S',
+           (PIECE_CENTER(movep->piece) == SOLID) ? 'S' : 'H',
+           (PIECE_HEIGHT(movep->piece) == TALL) ? 'T' : 'S');         
+  printf("Placed at row: ");
+  fgets(buf, BUF_SZ, stdin);
+  row = atoi(buf);
+  printf("Placed at col: ");
+  fgets(buf, BUF_SZ, stdin);
+  col = atoi(buf);
+  
+  movep->location = row * 4 + col;
+    
+  return 0;
+}
+
 void
 print_move(movep)
      Move *movep;
@@ -71,14 +96,25 @@ main(argc, argv)
      char **argv;
      int argc;
 {
+  FILE *fp;
   Game *gamep;
   Move move;
   char buf[BUF_SZ];
-  int ret, start;
-    
-  if ((ret = initialize_game(&gamep)) != 0) {
-    printf("Cannot init game (%d)\n", ret);
-    return ret;
+  int ret, score, start;
+  piece_t next_piece;
+  
+  if (argc == 2) {
+    fp = fopen(argv[1], "r");
+    if ((ret = parse(fp, &gamep)) != 0) {
+      printf("Cannot parse %s (err %d)\n", argv[1], ret);
+      return ret;
+    }
+    fclose(fp);
+  } else {
+    if ((ret = initialize_game(&gamep)) != 0) {
+      printf("Cannot init game (%d)\n", ret);
+      return ret;
+    }
   }
 
   start = -1;
@@ -91,12 +127,24 @@ main(argc, argv)
       start = 0;
   }
   
-  get_piece(&move.piece);
-  printf("Got piece %d\n", move.piece);
+  if (start) {
+    choose_piece(gamep, &move.piece, &score);
+  }
 
+  while (!IS_WINNING_BOARD(gamep->board)) {
+    opponents_turn(&move);
+    
+    make_move(gamep, &move);
 
-  for (move.location = 0; move.location < BOARD_SIZE; move.location++)
+    if (IS_WINNING_BOARD(gamep->board))
+      break;
+    
+    get_piece(&move.piece);
+    take_turn(gamep, move.piece, &move.location, &next_piece);
     print_move(&move);
+  
+    move.piece = next_piece;
+  }
   
   return 0;
 }
