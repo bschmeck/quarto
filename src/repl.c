@@ -8,6 +8,17 @@
 int get_piece(piece_t *);
 void print_move(Move *);
 
+#define SET_ATTRIBUTE(piece, attr, c, upper1, attr1, upper2, attr2)  \
+  do {                                                               \
+    if (c == upper1 || c == upper1 + 32) {                           \
+      found |= attr;                                                 \
+      piece |= attr1;                                                \
+    } else if (c == upper2 || c == upper2 + 32) {                    \
+      found |= attr;                                                 \
+      piece |= attr2;                                                \
+    }                                                                \
+  } while (0)
+
 int
 get_piece(piecep)
      piece_t *piecep;
@@ -29,39 +40,14 @@ get_piece(piecep)
       printf("[T]all/[S]hort? ");
     fgets(buf, BUF_SZ, stdin);
 
-    if (!(found & COLOR)) {
-      if (*buf == 'b' || *buf == 'B') {
-        found |= COLOR;
-        *piecep |= BLACK;
-      } else if (*buf == 'w' || *buf == 'W') {
-        found |= COLOR;
-        *piecep |= WHITE;
-      }
-    } else if (!(found & SHAPE)) {
-      if (*buf == 'r' || *buf == 'R') {
-        found |= SHAPE;
-        *piecep |= ROUND;
-      } else if (*buf == 's' || *buf == 'S') {
-        found |= SHAPE;
-        *piecep |= SQUARE;
-      }
-    } else if (!(found & CENTER)) {
-      if (*buf == 'h' || *buf == 'H') {
-        found |= CENTER;
-        *piecep |= HOLLOW;
-      } else if (*buf == 's' || *buf == 'S') {
-        found |= CENTER;
-        *piecep |= SOLID;
-      }
-    } else {
-      if (*buf == 't' || *buf == 'T') {
-        found |= HEIGHT;
-        *piecep |= TALL;
-      } else if (*buf == 's' || *buf == 'S') {
-        found |= HEIGHT;
-        *piecep |= SHORT;
-      }
-    }
+    if (!(found & COLOR))
+      SET_ATTRIBUTE(*piecep, COLOR, *buf, 'B', BLACK, 'W', WHITE);
+    else if (!(found & SHAPE))
+      SET_ATTRIBUTE(*piecep, SHAPE, *buf, 'R', ROUND, 'S', SQUARE);
+    else if (!(found & CENTER))
+      SET_ATTRIBUTE(*piecep, CENTER, *buf, 'H', HOLLOW, 'S', SOLID);
+    else
+      SET_ATTRIBUTE(*piecep, HEIGHT, *buf, 'T', TALL, 'S', SHORT);
   }
 
   return 0;
