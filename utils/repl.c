@@ -98,7 +98,7 @@ main(argc, argv)
   Game *gamep;
   Move move;
   char buf[BUF_SZ], *msg;
-  int ret, score, start;
+  int ret, score, myturn;
   piece_t next_piece;
   
   if (argc == 2) {
@@ -115,27 +115,29 @@ main(argc, argv)
     }
   }
 
-  start = -1;
-  while (start < 0) {
+  myturn = -1;
+  while (myturn < 0) {
     printf("Who goes first [m]e or [y]ou? ");
     fgets(buf, BUF_SZ, stdin);
     if (*buf == 'm' || *buf == 'M')
-      start = 1;
+      myturn = 1;
     else if (*buf == 'y' || *buf == 'Y')
-      start = 0;
+      myturn = 0;
   }
   
-  if (start) {
+  if (myturn) {
     choose_piece(gamep, &move.piece, &score);
   }
 
   while (!IS_GAME_OVER(gamep->board)) {
+    myturn = 0;
     opponents_turn(&move);
     
     make_move(gamep, &move);
 
     if (IS_GAME_OVER(gamep->board))
       break;
+    myturn = 1;
     
     get_piece(&move.piece);
     take_turn(gamep, move.piece, &move.location, &next_piece);
@@ -146,6 +148,7 @@ main(argc, argv)
   }
 
   if (IS_WINNING_BOARD(gamep->board)) {
+    printf("%s win.\n", myturn ? "I" : "You");
     explain_string(gamep, &msg);
     printf("%s\n", msg);
   } else {
