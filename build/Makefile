@@ -4,9 +4,10 @@ builddir = .
 srcdir = $(topdir)/src
 testdir = $(topdir)/tests
 benchdir = $(topdir)/bench
+utildir = $(topdir)/utils
 
-DEPS = $(srcdir)/board.h $(srcdir)/move.h $(srcdir)/parse.h $(srcdir)/utils.h $(testdir)/test.h
-QUARTO_OBJS = move.o parse.o
+DEPS = $(srcdir)/board.h $(srcdir)/move.h $(srcdir)/parse.h $(srcdir)/quarto.h $(srcdir)/utils.h $(testdir)/test.h
+QUARTO_OBJS = utils.o move.o parse.o
 BENCH_OBJS = benchmark.o
 TEST_OBJS = test.o test_all_match.o test_choose_piece.o test_count_pieces.o test_count_remaining_moves.o test_initialize_game.o test_is_game_over.o test_is_quarto.o test_is_winning_board.o test_make_move.o test_parse.o test_parse_piece.o test_possible_moves.o test_piece_attributes.o test_score_move.o test_take_turn.o
 
@@ -20,13 +21,15 @@ move.o: $(srcdir)/move.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 parse.o: $(srcdir)/parse.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
+utils.o: $(srcdir)/utils.c $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
 
 # Quarto Utils
-explain.o: $(srcdir)/explain.c $(DEPS)
+explain.o: $(utildir)/explain.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 explain: explain.o $(QUARTO_OBJS)
 	$(CC) -o $(bindir)/$@ $^ $(CFLAGS)
-repl.o: $(srcdir)/repl.c $(DEPS)
+repl.o: $(utildir)/repl.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 repl: repl.o $(QUARTO_OBJS)
 	$(CC) -o $(bindir)/$@ $^ $(CFLAGS)

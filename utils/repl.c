@@ -1,7 +1,5 @@
 #include <stdio.h>
-
-#include "board.h"
-#include "move.h"
+#include <quarto.h>
 
 #define BUF_SZ 80
 
@@ -99,7 +97,7 @@ main(argc, argv)
   FILE *fp;
   Game *gamep;
   Move move;
-  char buf[BUF_SZ];
+  char buf[BUF_SZ], *msg;
   int ret, score, start;
   piece_t next_piece;
   
@@ -145,6 +143,13 @@ main(argc, argv)
     print_move(&move);
   
     move.piece = next_piece;
+  }
+
+  if (IS_WINNING_BOARD(gamep->board)) {
+    explain_string(gamep, &msg);
+    printf("%s\n", msg);
+  } else {
+    printf("Cat's game\n");
   }
   
   return 0;
