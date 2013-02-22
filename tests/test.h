@@ -8,6 +8,7 @@ int test_choose_piece(void);
 int test_count_pieces(void);
 int test_count_remaining_moves(void);
 int test_initialize_game(void);
+int test_is_game_over(void);
 int test_is_quarto(void);
 int test_is_winning_board(void);
 int test_make_move(void);

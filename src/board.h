@@ -67,6 +67,9 @@ typedef unsigned int piece_t;
 #define COUNT_PIECES(piecesp) \
   ((piecesp[0] & PIECE) + (piecesp[1] & PIECE) + (piecesp[2] & PIECE) + (piecesp[3] & PIECE) + (piecesp[4] & PIECE) + (piecesp[5] & PIECE) + (piecesp[6] & PIECE) + (piecesp[7] & PIECE) + (piecesp[8] & PIECE) + (piecesp[9] & PIECE) + (piecesp[10] & PIECE) + (piecesp[11] & PIECE) + (piecesp[12] & PIECE) + (piecesp[13] & PIECE) + (piecesp[14] & PIECE) + (piecesp[15] & PIECE))
 
+#define IS_GAME_OVER(boardp) \
+  (IS_WINNING_BOARD(boardp) || COUNT_PIECES(boardp) == BOARD_SIZE)
+
 typedef struct {
         piece_t board[BOARD_SIZE];
 		piece_t remaining[NPIECES];
