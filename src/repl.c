@@ -141,6 +141,7 @@ main(argc, argv)
     
     get_piece(&move.piece);
     take_turn(gamep, move.piece, &move.location, &next_piece);
+    make_move(gamep, &move);
     print_move(&move);
   
     move.piece = next_piece;
