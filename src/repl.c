@@ -131,12 +131,12 @@ main(argc, argv)
     choose_piece(gamep, &move.piece, &score);
   }
 
-  while (!IS_WINNING_BOARD(gamep->board)) {
+  while (!IS_GAME_OVER(gamep->board)) {
     opponents_turn(&move);
     
     make_move(gamep, &move);
 
-    if (IS_WINNING_BOARD(gamep->board))
+    if (IS_GAME_OVER(gamep->board))
       break;
     
     get_piece(&move.piece);
