@@ -126,25 +126,25 @@ main(argc, argv)
   }
   
   if (myturn) {
+    myturn = 0;
     choose_piece(gamep, &move.piece, &score);
+    opponents_turn(&move);
+    make_move(gamep, &move);
   }
 
   while (!IS_GAME_OVER(gamep->board)) {
-    myturn = 0;
-    opponents_turn(&move);
-    
-    make_move(gamep, &move);
-
-    if (IS_GAME_OVER(gamep->board))
-      break;
     myturn = 1;
-    
     get_piece(&move.piece);
     take_turn(gamep, move.piece, &move.location, &next_piece);
     make_move(gamep, &move);
     print_move(&move);
-  
+    if (IS_GAME_OVER(gamep->board))
+      break;
+    
+    myturn = 0;
     move.piece = next_piece;
+    opponents_turn(&move);
+    make_move(gamep, &move);
   }
 
   if (IS_WINNING_BOARD(gamep->board)) {
