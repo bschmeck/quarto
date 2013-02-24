@@ -84,7 +84,7 @@ choose_piece(gamep, piecep, scorep)
    * For every remaining piece, sum the scores of the possible moves our
    * opponent could make.  The piece with the highest sum is the winner.
    */
-  memset(scores, 0, NPIECES);
+  memset(scores, 0, NPIECES * sizeof(piece_t));
   if ((nmoves = possible_moves(gamep, &moves)) < 0)
     return nmoves;
   
