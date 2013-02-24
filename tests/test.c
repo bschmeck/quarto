@@ -20,6 +20,7 @@ main(argc, argv)
 		ret = 0;
 
 		RUN_TEST(test_piece_attributes, "PIECE_ATTRIBUTES");
+		RUN_TEST(test_piece_string, "PIECE_STRING");
 		RUN_TEST(test_all_match, "ALL_MATCH");
 		RUN_TEST(test_is_quarto, "IS_QUARTO");
 		RUN_TEST(test_is_winning_board, "IS_WINNING_BOARD");

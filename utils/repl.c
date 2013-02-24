@@ -80,11 +80,11 @@ void
 print_move(movep)
      Move *movep;
 {
-  printf("Put piece %c%c%c%c at row %d col %d\n",
-         (PIECE_COLOR(movep->piece) == BLACK) ? 'B' : 'W',
-         (PIECE_SHAPE(movep->piece) == ROUND) ? 'R' : 'S',
-         (PIECE_CENTER(movep->piece) == SOLID) ? 'S' : 'H',
-         (PIECE_HEIGHT(movep->piece) == TALL) ? 'T' : 'S',
+  char piece[5];
+
+  piece_string(movep->piece, piece);
+  printf("Put piece %s at row %d col %d\n",
+         piece,
          movep->location / 4,
          movep->location % 4);
 }

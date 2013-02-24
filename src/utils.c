@@ -15,6 +15,20 @@
   } while (0)
 
 int
+piece_string(piece, strp)
+     piece_t piece;
+     char *strp;
+{
+  strp[0] = (PIECE_COLOR(piece) == BLACK) ? 'B' : 'W';
+  strp[1] = (PIECE_SHAPE(piece) == ROUND) ? 'R' : 'S';
+  strp[2] = (PIECE_CENTER(piece) == SOLID) ? 'S' : 'H';
+  strp[3] = (PIECE_HEIGHT(piece) == TALL) ? 'T' : 'S';
+  strp[4] = '\0';
+
+  return 0;         
+}
+
+int
 explain_string(gamep, strp)
      Game *gamep;
      char **strp;

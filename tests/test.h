@@ -1,6 +1,7 @@
 #include <board.h>
 #include <parse.h>
 #include <move.h>
+#include <utils.h>
 
 /* Declare test methods here, sorted alphabetically. */
 int test_all_match(void);
@@ -15,6 +16,7 @@ int test_make_move(void);
 int test_parse(void);
 int test_parse_piece(void);
 int test_piece_attributes(void);
+int test_piece_string(void);
 int test_possible_moves(void);
 int test_score_move(void);
 int test_take_turn(void);
